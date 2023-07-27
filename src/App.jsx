@@ -1,16 +1,16 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import AddTodo from "./components/AddTodo";
-import Todos from "./components/Todos";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import EditTodo from "./components/EditTodo";
 const App = () => {
- 
   return (
     <>
-        <Navbar />
-        <div className="container mx-auto">
-          <AddTodo />
-          <Todos />
-        </div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/update" element={<EditTodo />} />
+      </Routes>
     </>
   );
 };

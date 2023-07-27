@@ -3,11 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { TodoProvider } from "./context/TodoContext.jsx";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-
-    <TodoProvider>
+  <TodoProvider>
+    <BrowserRouter>
       <App />
-    </TodoProvider>
-
+    </BrowserRouter>
+  </TodoProvider>
 );
