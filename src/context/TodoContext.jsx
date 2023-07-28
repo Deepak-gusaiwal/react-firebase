@@ -6,6 +6,7 @@ import {
   getDocs,
   doc,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 
@@ -18,6 +19,8 @@ const TodoProvider = ({ children }) => {
   const collectionRef = collection(db, CollectionName);
 
   const [todos, setTodos] = useState([]);
+
+  const [singleTodo, setSingleTodo] = useState({});
 
   // To get Todo Data
   const getTodos = async () => {
@@ -69,6 +72,26 @@ const TodoProvider = ({ children }) => {
     getTodos();
   };
 
+  //fetch single Todo Data
+  const fetechSingleTodo = async (id) => {
+    try {
+      const singleTodoRef = doc(db, CollectionName, id);
+      const singleTodoSnapshot = await getDoc(singleTodoRef);
+      if (singleTodoSnapshot.exists) {
+        const requiredData = singleTodoSnapshot.data();
+        setSingleTodo({...requiredData});
+        console.log('inside',singleTodo)
+      } else {
+        alert("data is not exists");
+        setSingleTodo({});
+      }
+    } catch (error) {
+      alert("error while fetching single Todo data");
+      console.log(error);
+    }
+
+  };
+  console.log('outside',singleTodo)
   // To Edit Todo Data
   const editTodo = () => {
     console.log("edit Todo");
@@ -76,7 +99,15 @@ const TodoProvider = ({ children }) => {
 
   return (
     <TodoContext.Provider
-      value={{ todos, getTodos, addTodo, deleteTodo, editTodo }}
+      value={{
+        todos,
+        getTodos,
+        addTodo,
+        deleteTodo,
+        editTodo,
+        fetechSingleTodo,
+        singleTodo
+      }}
     >
       {children}
     </TodoContext.Provider>

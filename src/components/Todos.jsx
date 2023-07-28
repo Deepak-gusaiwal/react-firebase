@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 import { useTodoContext } from "../context/TodoContext";
+import EditTodo from "./EditTodo";
 
 const Todos = () => {
   const { todos, getTodos } = useTodoContext();
+  const [editModal,setEditModal] = useState(false)
 
   useEffect(() => {
     getTodos();
@@ -18,11 +20,16 @@ const Todos = () => {
         <div className="grid  lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 gap-4 p-2">
           {
             todos.map((item,index)=>{
-              return <Todo data={item} key={index} />
+              return <Todo setEditModal={setEditModal} data={item} key={index} />
             })
           }
         </div>
       )}
+
+      {
+        editModal && <EditTodo setEditModal={setEditModal}/>
+        
+      }
     </div>
   );
 };

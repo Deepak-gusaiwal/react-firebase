@@ -3,8 +3,8 @@ import { useTodoContext } from "../context/TodoContext";
 const AddTodo = () => {
   const { addTodo } = useTodoContext();
   const [title, setTitle] = useState("");
-  const [err, setErr] = useState(false);
   const [description, setDescription] = useState("");
+  const [err, setErr] = useState(false);
 
   const handdleAddTodo = () => {
     if (!title || !description) {
